@@ -11,7 +11,7 @@ export async function analyzeXRay(imageFile) {
   const formData = new FormData();
   formData.append('file', imageFile);
 
-  const response = await api.post('/analyze-all', formData, {
+  const response = await api.post('/predict-all', formData, {
     headers: { 'Content-Type': 'multipart/form-data' },
   });
 
