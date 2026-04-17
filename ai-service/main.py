@@ -118,6 +118,8 @@ async def predict_all_endpoint(file: UploadFile = File(...)):
     primary_result = None
 
     for model_name, model in ml_model.items():
+        if model_name == "clip":
+            continue
         try:
             t0 = time.time()
             res = predict(model, image_bytes)

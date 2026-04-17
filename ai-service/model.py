@@ -17,7 +17,7 @@ load_dotenv()
 # ── Config ────────────────────────────────────────────────────────────────────
 MODEL_DIR = os.getenv(
     "MODEL_DIR",
-    "/Users/krishnapandey/Downloads/Radi_Lens_Ai/ai_models",
+    "ai_models",
 )
 CLASS_NAMES = ["NORMAL", "PNEUMONIA"]
 DEVICE = torch.device("cpu")  # CPU inference — no GPU required

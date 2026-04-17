@@ -57,7 +57,9 @@ export default function App() {
     } catch (err) {
       console.error('Analysis error:', err);
       let msg = 'An unexpected error occurred. Please try again.';
-      if (err.response?.data?.error) {
+      if (err.response?.data?.detail) {
+        msg = err.response.data.detail;
+      } else if (err.response?.data?.error) {
         msg = err.response.data.error;
       } else if (err.code === 'ECONNABORTED' || err.message?.includes('timeout')) {
         msg = 'Request timed out. Models might be loading — please try again.';
