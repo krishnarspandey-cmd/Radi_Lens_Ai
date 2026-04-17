@@ -51,6 +51,9 @@ export default function App() {
 
     try {
       const data = await analyzeXRay(file);
+      if (!data.primary_result || data.models.length === 0) {
+        throw new Error('AI Engine loaded 0 diagnostic models. Please ensure the .pth files are placed strictly in the `ai_models` folder on Hugging Face.');
+      }
       setResult(data);
       saveHistory(data, objectUrl);
       setAppState(STATE.RESULT);

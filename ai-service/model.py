@@ -53,8 +53,15 @@ def build_vgg16(num_classes: int = 2) -> nn.Module:
 
 def load_weights(model: nn.Module, model_path: str):
     if not os.path.exists(model_path):
-        print(f"Warning: Model file not found at: {model_path}")
-        return None
+        # Fallback: check if the file was accidentally uploaded to the root directory
+        filename = os.path.basename(model_path)
+        fallback_path = filename
+        if os.path.exists(fallback_path):
+            model_path = fallback_path
+        else:
+            print(f"Warning: Model file not found at: {model_path} or {fallback_path}")
+            return None
+            
     state = torch.load(model_path, map_location=DEVICE, weights_only=True)
     if isinstance(state, dict) and "state_dict" in state:
         state = state["state_dict"]
