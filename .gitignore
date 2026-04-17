@@ -1,0 +1,24 @@
+# Python
+ai-service/.venv/
+__pycache__/
+*.pyc
+
+# Java
+backend/target/
+.mvn/
+.settings/
+.project
+.classpath
+
+# Node / React
+frontend/node_modules/
+frontend/dist/
+frontend/.env.local
+
+# AI Models (CRITICAL to ignore, too large for standard Git)
+ai_models/*.pth
+ai_models/*.bin
+ai_models/*.h5
+
+# macOS
+.DS_Store

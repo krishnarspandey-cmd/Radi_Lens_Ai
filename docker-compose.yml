@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  ai-service:
+    build:
+      context: ./ai-service
+    container_name: radilens-ai
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./ai_models:/app/ai_models # Mount massive AI weights externally
+      # Optional: To persist huggingface cache for CLIP, mount a volume
+      - huggingface_cache:/root/.cache/huggingface
+    environment:
+      - MODEL_DIR=/app/ai_models
+    networks:
+      - radilens_net
+
+  backend:
+    build:
+      context: ./backend
+    container_name: radilens-backend
+    ports:
+      - "8080:8080"
+    environment:
+      - AI_SERVICE_URL=http://ai-service:8000
+    depends_on:
+      - ai-service
+    networks:
+      - radilens_net
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: radilens-frontend
+    ports:
+      - "80:80"        # Typical production port
+      - "5173:80"      # Optional fallback mapping for dev familiarity
+    depends_on:
+      - backend
+    networks:
+      - radilens_net
+
+networks:
+  radilens_net:
+    driver: bridge
+
+volumes:
+  huggingface_cache:
