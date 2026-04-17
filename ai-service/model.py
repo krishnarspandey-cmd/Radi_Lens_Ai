@@ -55,7 +55,7 @@ def load_weights(model: nn.Module, model_path: str):
     if not os.path.exists(model_path):
         # Fallback: check if the file was accidentally uploaded to the root directory
         filename = os.path.basename(model_path)
-        fallback_path = filename
+        fallback_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), filename)
         if os.path.exists(fallback_path):
             model_path = fallback_path
         else:
