@@ -1,36 +1,39 @@
-import './LoadingSpinner.css';
-
 export default function LoadingSpinner() {
   return (
-    <div className="loading-container" role="status" aria-label="Analyzing X-ray image">
-      <div className="loading-visual">
-        {/* Outer rotating ring */}
-        <div className="ring ring-outer" />
-        {/* Middle pulsing ring */}
-        <div className="ring ring-middle" />
-        {/* Inner core */}
-        <div className="ring-core">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M3 12h4M12 3v4M17 12h4M12 17v4" stroke="#38bdf8" strokeWidth="2" strokeLinecap="round"/>
-            <circle cx="12" cy="12" r="3" stroke="#38bdf8" strokeWidth="1.5"/>
-          </svg>
-        </div>
+    <div className="flex flex-col items-center justify-center py-lg gap-md">
+      {/* Spinner */}
+      <div className="relative w-12 h-12">
+        <div className="absolute inset-0 border-3 border-surface-variant rounded-full" />
+        <div className="absolute inset-0 border-3 border-primary border-t-transparent rounded-full animate-spin-slow" />
       </div>
 
-      <div className="loading-text">
-        <p className="loading-title">Analyzing X-Ray</p>
-        <p className="loading-subtitle">Running deep learning inference…</p>
+      {/* Text */}
+      <div className="text-center">
+        <p className="text-title-sm text-on-surface mb-1">Analyzing X-Ray</p>
+        <p className="text-body-sm text-on-surface-variant">Running multi-model inference…</p>
       </div>
 
-      {/* Step indicator */}
-      <div className="loading-steps">
-        {['Preprocessing', 'Feature Extraction', 'Classification'].map((step, i) => (
-          <div key={step} className="loading-step" style={{ animationDelay: `${i * 0.4}s` }}>
-            <div className="step-dot" style={{ animationDelay: `${i * 0.4}s` }} />
-            <span>{step}</span>
-          </div>
+      {/* Progress Dots */}
+      <div className="flex items-center gap-2">
+        {[0, 1, 2].map((i) => (
+          <div
+            key={i}
+            className="w-2 h-2 rounded-full bg-primary"
+            style={{
+              animation: 'pulse 1.4s ease-in-out infinite',
+              animationDelay: `${i * 0.2}s`,
+              opacity: 0.3,
+            }}
+          />
         ))}
       </div>
+
+      <style>{`
+        @keyframes pulse {
+          0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
+          40% { opacity: 1; transform: scale(1.2); }
+        }
+      `}</style>
     </div>
   );
 }

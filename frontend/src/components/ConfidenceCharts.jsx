@@ -9,19 +9,11 @@ import {
   ArcElement
 } from 'chart.js';
 import { Bar, Doughnut } from 'react-chartjs-2';
-import './ConfidenceCharts.css';
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-  ArcElement
-);
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement);
 
-ChartJS.defaults.color = '#94a3b8';
+// Light theme defaults
+ChartJS.defaults.color = '#414752';
 ChartJS.defaults.font.family = "'Inter', sans-serif";
 
 export default function ConfidenceCharts({ models, primaryResult }) {
@@ -34,17 +26,13 @@ export default function ConfidenceCharts({ models, primaryResult }) {
         label: 'Confidence (%)',
         data: models.map(m => Math.round(m.confidence * 100)),
         backgroundColor: [
-          'rgba(56, 189, 248, 0.8)', // ResNet18 - Cyan
-          'rgba(192, 132, 252, 0.8)', // DenseNet121 - Purple
-          'rgba(251, 146, 60, 0.8)',   // VGG16 - Orange
+          'rgba(25, 118, 210, 0.7)',   // Primary blue
+          'rgba(0, 106, 96, 0.7)',     // Secondary teal
+          'rgba(148, 71, 0, 0.7)',     // Tertiary orange
         ],
-        borderColor: [
-          '#38bdf8',
-          '#c084fc',
-          '#fb923c',
-        ],
+        borderColor: ['#1976d2', '#006a60', '#944700'],
         borderWidth: 1,
-        borderRadius: 4,
+        borderRadius: 6,
       },
     ],
   };
@@ -54,23 +42,25 @@ export default function ConfidenceCharts({ models, primaryResult }) {
     maintainAspectRatio: false,
     plugins: {
       legend: { display: false },
-      title: { display: false }
+      title: { display: false },
     },
     scales: {
       y: {
         beginAtZero: true,
         max: 100,
-        grid: { color: 'rgba(255, 255, 255, 0.05)' },
-        ticks: { stepSize: 20 }
+        grid: { color: 'rgba(0, 0, 0, 0.06)' },
+        ticks: { stepSize: 20 },
       },
       x: {
-        grid: { display: false }
-      }
-    }
+        grid: { display: false },
+      },
+    },
   };
 
   const isPrimaryPneumonia = primaryResult.prediction === 'PNEUMONIA';
-  const pneuPct = isPrimaryPneumonia ? Math.round(primaryResult.confidence * 100) : 100 - Math.round(primaryResult.confidence * 100);
+  const pneuPct = isPrimaryPneumonia
+    ? Math.round(primaryResult.confidence * 100)
+    : 100 - Math.round(primaryResult.confidence * 100);
   const normPct = 100 - pneuPct;
 
   const doughnutData = {
@@ -78,16 +68,10 @@ export default function ConfidenceCharts({ models, primaryResult }) {
     datasets: [
       {
         data: [pneuPct, normPct],
-        backgroundColor: [
-          'rgba(248, 113, 113, 0.8)', // Red
-          'rgba(74, 222, 128, 0.8)',  // Green
-        ],
-        borderColor: [
-          '#f87171',
-          '#4ade80',
-        ],
+        backgroundColor: ['rgba(186, 26, 26, 0.7)', 'rgba(0, 106, 96, 0.7)'],
+        borderColor: ['#ba1a1a', '#006a60'],
         borderWidth: 1,
-        hoverOffset: 4
+        hoverOffset: 4,
       },
     ],
   };
@@ -99,33 +83,35 @@ export default function ConfidenceCharts({ models, primaryResult }) {
     plugins: {
       legend: {
         position: 'bottom',
-        labels: { padding: 20, usePointStyle: true }
-      }
-    }
+        labels: { padding: 20, usePointStyle: true },
+      },
+    },
   };
 
   return (
-    <div className="charts-container glass">
-      <div className="section-header">
-        <h3 className="section-title">Confidence Analytics</h3>
-        <p className="section-subtitle">Visualizing model agreement and probabilities</p>
+    <div className="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-[0_2px_4px_rgba(0,0,0,0.04)] p-lg">
+      <div className="mb-lg">
+        <h3 className="text-title-sm text-on-surface">Confidence Analytics</h3>
+        <p className="text-body-sm text-on-surface-variant mt-1">Visualizing model agreement and probabilities</p>
       </div>
-      
-      <div className="charts-grid">
-        <div className="chart-wrapper">
-          <h4 className="chart-title">Confidence per Model</h4>
-          <div className="chart-canvas-wrap bar-wrap">
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-lg">
+        <div>
+          <h4 className="text-label-bold text-on-surface-variant uppercase mb-md">Confidence per Model</h4>
+          <div className="h-[250px]">
             <Bar data={barData} options={barOptions} />
           </div>
         </div>
 
-        <div className="chart-wrapper">
-          <h4 className="chart-title">Class Distribution (Primary)</h4>
-          <div className="chart-canvas-wrap doughnut-wrap">
+        <div>
+          <h4 className="text-label-bold text-on-surface-variant uppercase mb-md">Class Distribution (Primary)</h4>
+          <div className="h-[250px] relative">
             <Doughnut data={doughnutData} options={doughnutOptions} />
-            <div className="doughnut-center-txt">
-              <span>{Math.max(pneuPct, normPct)}%</span>
-              <p>{isPrimaryPneumonia ? 'Pneumonia' : 'Normal'}</p>
+            <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none" style={{ top: '-20px' }}>
+              <span className="text-display-lg text-on-surface">{Math.max(pneuPct, normPct)}%</span>
+              <p className="text-body-sm text-on-surface-variant">
+                {isPrimaryPneumonia ? 'Pneumonia' : 'Normal'}
+              </p>
             </div>
           </div>
         </div>

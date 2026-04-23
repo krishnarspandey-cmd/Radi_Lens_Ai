@@ -1,21 +1,14 @@
 import { useEffect, useRef } from 'react';
-import './ResultCard.css';
 
-const PNEUMONIA_COLOR = '#f87171';
-const NORMAL_COLOR    = '#4ade80';
-const RING_RADIUS     = 54;
-const CIRCUMFERENCE   = 2 * Math.PI * RING_RADIUS;
+const RING_RADIUS = 54;
+const CIRCUMFERENCE = 2 * Math.PI * RING_RADIUS;
 
 export default function ResultCard({ result }) {
-  // Check if primary_result structure
   const prediction = result.prediction;
   const confidence = result.confidence;
-
   const isPneumonia = prediction === 'PNEUMONIA';
-  const color = isPneumonia ? PNEUMONIA_COLOR : NORMAL_COLOR;
-  const pct   = Math.round(confidence * 100);
+  const pct = Math.round(confidence * 100);
 
-  /* Animate the confidence ring on mount */
   const ringRef = useRef(null);
   useEffect(() => {
     if (!ringRef.current) return;
@@ -29,36 +22,69 @@ export default function ResultCard({ result }) {
   }, [confidence]);
 
   return (
-    <div className={`result-card ${isPneumonia ? 'pneumonia' : 'normal'}`} style={{ paddingBottom: '24px' }}>
-      <div className="result-banner" style={{ background: 'transparent', padding: '10px 0', border: 'none' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-          <div className="result-icon" aria-hidden="true" style={{ fontSize: '3rem', background: isPneumonia ? 'rgba(248,113,113,0.1)' : 'rgba(74,222,128,0.1)', padding: '16px', borderRadius: '20px' }}>
-            {isPneumonia ? '🫁' : '✅'}
+    <div className={`bg-surface-container-lowest border rounded-xl p-lg shadow-[0_2px_4px_rgba(0,0,0,0.04)] ${
+      isPneumonia ? 'border-error/30' : 'border-secondary/30'
+    }`}>
+      {/* Top Badge */}
+      <p className="text-label-bold text-on-surface-variant uppercase mb-2">AI Prediction</p>
+
+      <div className="flex items-center justify-between gap-md">
+        {/* Left: Icon + Label */}
+        <div className="flex items-center gap-3">
+          <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${
+            isPneumonia ? 'bg-error-container' : 'bg-secondary-container'
+          }`}>
+            <span className={`material-symbols-outlined icon-fill text-2xl ${
+              isPneumonia ? 'text-on-error-container' : 'text-on-secondary-container'
+            }`}>
+              {isPneumonia ? 'warning' : 'check_circle'}
+            </span>
           </div>
           <div>
-            <h2 style={{ fontSize: '1.8rem', margin: 0, color: 'var(--text-primary)' }}>
-              {isPneumonia ? 'Pneumonia Detected' : 'Normal Scan'}
+            <h2 className={`text-display-lg ${isPneumonia ? 'text-error' : 'text-secondary'}`}>
+              {isPneumonia ? 'PNEUMONIA' : 'NORMAL'}
             </h2>
-            <p style={{ color: 'var(--text-secondary)', marginTop: '4px' }}>
-              Primary AI Consensus Result
-            </p>
+            <p className="text-body-sm text-on-surface-variant">Primary AI Consensus Result</p>
           </div>
         </div>
 
-        <div className="confidence-ring-wrap" style={{ transform: 'scale(0.85)' }}>
-          <svg width="140" height="140" viewBox="0 0 140 140" role="img">
-            <circle cx="70" cy="70" r={RING_RADIUS} fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="10"/>
+        {/* Right: Confidence Ring */}
+        <div className="shrink-0">
+          <svg width="100" height="100" viewBox="0 0 140 140" role="img">
+            <circle cx="70" cy="70" r={RING_RADIUS} fill="none" stroke="#e0e2ea" strokeWidth="8" />
             <circle
               ref={ringRef}
               cx="70" cy="70" r={RING_RADIUS} fill="none"
-              stroke={color} strokeWidth="10" strokeLinecap="round"
+              stroke={isPneumonia ? '#ba1a1a' : '#006a60'}
+              strokeWidth="8" strokeLinecap="round"
               strokeDasharray={CIRCUMFERENCE} strokeDashoffset={CIRCUMFERENCE}
               transform="rotate(-90 70 70)"
-              style={{ transition: 'stroke-dashoffset 1.2s cubic-bezier(0.4,0,0.2,1)', filter: `drop-shadow(0 0 8px ${color})` }}
+              style={{
+                transition: 'stroke-dashoffset 1.2s cubic-bezier(0.4,0,0.2,1)',
+                filter: `drop-shadow(0 0 6px ${isPneumonia ? 'rgba(186,26,26,0.3)' : 'rgba(0,106,96,0.3)'})`
+              }}
             />
-            <text x="70" y="66" textAnchor="middle" fill={color} fontSize="26" fontWeight="700" fontFamily="Inter, sans-serif">{pct}%</text>
-            <text x="70" y="82" textAnchor="middle" fill="#8892b0" fontSize="11" fontFamily="Inter, sans-serif">confidence</text>
+            <text x="70" y="66" textAnchor="middle" fill={isPneumonia ? '#ba1a1a' : '#006a60'} fontSize="24" fontWeight="700" fontFamily="Inter, sans-serif">
+              {pct}%
+            </text>
+            <text x="70" y="82" textAnchor="middle" fill="#717783" fontSize="11" fontFamily="Inter, sans-serif">
+              confidence
+            </text>
           </svg>
+        </div>
+      </div>
+
+      {/* Confidence Bar */}
+      <div className="mt-md">
+        <div className="flex justify-between mb-1">
+          <span className="text-label-bold text-on-surface-variant">Confidence Level</span>
+          <span className="text-data-mono text-primary">{pct}%</span>
+        </div>
+        <div className="w-full bg-surface-variant h-2 rounded-full overflow-hidden">
+          <div
+            className={`h-full rounded-full transition-all duration-1000 ${isPneumonia ? 'bg-error' : 'bg-secondary'}`}
+            style={{ width: `${pct}%` }}
+          />
         </div>
       </div>
     </div>

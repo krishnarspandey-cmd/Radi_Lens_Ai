@@ -1,99 +1,193 @@
-/* ============================================================
-   RadiLens AI — Global Design System
-   Dark medical-tech glassmorphism aesthetic
-   ============================================================ */
+@import "tailwindcss";
+@plugin "@tailwindcss/forms";
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@theme {
+  /* ── Colors (Material Design 3 tokens from Stitch) ── */
+  --color-inverse-on-surface: #eff0f9;
+  --color-on-error: #ffffff;
+  --color-surface-bright: #f9f9ff;
+  --color-on-tertiary: #ffffff;
+  --color-surface-dim: #d8dae2;
+  --color-background: #f9f9ff;
+  --color-surface-tint: #005faf;
+  --color-on-tertiary-fixed-variant: #733600;
+  --color-tertiary-container: #ba5b00;
+  --color-on-error-container: #93000a;
+  --color-error: #ba1a1a;
+  --color-on-secondary-fixed: #00201c;
+  --color-primary-container: #1976d2;
+  --color-on-surface-variant: #414752;
+  --color-on-secondary: #ffffff;
+  --color-surface-container-high: #e6e8f0;
+  --color-secondary-fixed: #85f6e5;
+  --color-surface-container-lowest: #ffffff;
+  --color-on-background: #181c21;
+  --color-on-primary-fixed-variant: #004786;
+  --color-inverse-surface: #2d3037;
+  --color-surface-container: #ecedf6;
+  --color-on-tertiary-container: #fffeff;
+  --color-on-secondary-container: #007166;
+  --color-on-primary-fixed: #001c3a;
+  --color-on-secondary-fixed-variant: #005048;
+  --color-error-container: #ffdad6;
+  --color-secondary-container: #85f6e5;
+  --color-inverse-primary: #a5c8ff;
+  --color-outline: #717783;
+  --color-on-surface: #181c21;
+  --color-primary-fixed: #d4e3ff;
+  --color-on-primary: #ffffff;
+  --color-surface: #f9f9ff;
+  --color-tertiary-fixed: #ffdbc7;
+  --color-tertiary: #944700;
+  --color-on-primary-container: #fffdff;
+  --color-secondary-fixed-dim: #67d9c9;
+  --color-outline-variant: #c1c6d4;
+  --color-tertiary-fixed-dim: #ffb688;
+  --color-primary: #005dac;
+  --color-surface-container-highest: #e0e2ea;
+  --color-secondary: #006a60;
+  --color-on-tertiary-fixed: #311300;
+  --color-surface-variant: #e0e2ea;
+  --color-surface-container-low: #f2f3fc;
+  --color-primary-fixed-dim: #a5c8ff;
 
-/* ── CSS Variables ──────────────────────────────────────────── */
-:root {
-  /* Colors */
-  --bg-primary:    #060b18;
-  --bg-secondary:  #0d1628;
-  --bg-card:       rgba(13, 22, 40, 0.7);
-  --bg-glass:      rgba(255, 255, 255, 0.04);
-  --border-glass:  rgba(255, 255, 255, 0.08);
-  --border-accent: rgba(56, 189, 248, 0.3);
+  /* ── Font families ── */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-display-lg: 'Inter', sans-serif;
+  --font-headline-md: 'Inter', sans-serif;
+  --font-body-sm: 'Inter', sans-serif;
+  --font-body-main: 'Inter', sans-serif;
+  --font-title-sm: 'Inter', sans-serif;
+  --font-label-bold: 'Inter', sans-serif;
+  --font-data-mono: 'Inter', sans-serif;
 
-  --cyan-400:  #38bdf8;
-  --cyan-500:  #0ea5e9;
-  --cyan-600:  #0284c7;
-  --cyan-glow: rgba(56, 189, 248, 0.15);
+  /* ── Border radius ── */
+  --radius-sm: 0.25rem;
+  --radius-DEFAULT: 0.25rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
 
-  --green-400: #4ade80;
-  --green-glow: rgba(74, 222, 128, 0.2);
-  --red-400:   #f87171;
-  --red-glow:  rgba(248, 113, 113, 0.2);
-  --amber-400: #fbbf24;
-
-  --text-primary:   #f1f5f9;
-  --text-secondary: #94a3b8;
-  --text-muted:     #475569;
-
-  /* Typography */
-  --font: 'Inter', system-ui, sans-serif;
-
-  /* Spacing */
-  --radius-sm:  8px;
-  --radius-md:  12px;
-  --radius-lg:  20px;
-  --radius-xl:  28px;
-
-  /* Transitions */
-  --transition: 200ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  /* ── Spacing (custom tokens) ── */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-base: 8px;
+  --spacing-md: 16px;
+  --spacing-gutter: 16px;
+  --spacing-lg: 24px;
+  --spacing-container-margin: 32px;
+  --spacing-xl: 40px;
 }
 
-/* ── Reset & Base ───────────────────────────────────────────── */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
+/* ── Global base styles ── */
 html {
-  font-size: 16px;
-  scroll-behavior: smooth;
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  font-family: var(--font);
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  min-height: 100vh;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  margin: 0;
+  background-color: var(--color-surface);
+  color: var(--color-on-surface);
 }
 
-/* ── Background mesh gradient ───────────────────────────────── */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(14, 165, 233, 0.08) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 50% at 80% 80%, rgba(99, 102, 241, 0.06) 0%, transparent 60%),
-    radial-gradient(ellipse 40% 40% at 50% 50%, rgba(56, 189, 248, 0.03) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 0;
+/* Material Icons */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
 
-#root {
-  position: relative;
-  z-index: 1;
+.icon-fill {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
 
-/* ── Scrollbar ───────────────────────────────────────────────── */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--bg-primary); }
-::-webkit-scrollbar-thumb { background: var(--border-glass); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--cyan-600); }
+/* ── Typography utility classes ── */
+.text-display-lg {
+  font-size: 32px;
+  line-height: 40px;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
 
-/* ── Glass utility ───────────────────────────────────────────── */
-.glass {
-  background: var(--bg-card);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--border-glass);
+.text-headline-md {
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: -0.01em;
+  font-weight: 600;
+}
+
+.text-title-sm {
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 600;
+}
+
+.text-body-main {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+}
+
+.text-body-sm {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+}
+
+.text-label-bold {
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.text-data-mono {
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.01em;
+  font-weight: 500;
+}
+
+/* ── Scrollbar styling ── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-outline-variant);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-outline);
+}
+
+/* ── Transitions ── */
+* {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Upload zone drag active animation ── */
+@keyframes pulse-border {
+  0%, 100% { border-color: var(--color-primary); }
+  50% { border-color: var(--color-primary-fixed-dim); }
+}
+
+.upload-drag-active {
+  animation: pulse-border 1.5s ease-in-out infinite;
+  background-color: var(--color-surface-container-low) !important;
+}
+
+/* ── Loading spinner ── */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin 1.2s linear infinite;
+}
+
+/* ── Chart.js overrides for light theme ── */
+canvas {
+  max-width: 100%;
 }

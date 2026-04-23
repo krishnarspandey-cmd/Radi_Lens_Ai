@@ -1,0 +1,1405 @@
+<!-- Design System -->
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Pneumonia Detection System</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-on-surface": "#eff0f9",
+                        "on-error": "#ffffff",
+                        "surface-bright": "#f9f9ff",
+                        "on-tertiary": "#ffffff",
+                        "surface-dim": "#d8dae2",
+                        "background": "#f9f9ff",
+                        "surface-tint": "#005faf",
+                        "on-tertiary-fixed-variant": "#733600",
+                        "tertiary-container": "#ba5b00",
+                        "on-error-container": "#93000a",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed": "#00201c",
+                        "primary-container": "#1976d2",
+                        "on-surface-variant": "#414752",
+                        "on-secondary": "#ffffff",
+                        "surface-container-high": "#e6e8f0",
+                        "secondary-fixed": "#85f6e5",
+                        "surface-container-lowest": "#ffffff",
+                        "on-background": "#181c21",
+                        "on-primary-fixed-variant": "#004786",
+                        "inverse-surface": "#2d3037",
+                        "surface-container": "#ecedf6",
+                        "on-tertiary-container": "#fffeff",
+                        "on-secondary-container": "#007166",
+                        "on-primary-fixed": "#001c3a",
+                        "on-secondary-fixed-variant": "#005048",
+                        "error-container": "#ffdad6",
+                        "secondary-container": "#85f6e5",
+                        "inverse-primary": "#a5c8ff",
+                        "outline": "#717783",
+                        "on-surface": "#181c21",
+                        "primary-fixed": "#d4e3ff",
+                        "on-primary": "#ffffff",
+                        "surface": "#f9f9ff",
+                        "tertiary-fixed": "#ffdbc7",
+                        "tertiary": "#944700",
+                        "on-primary-container": "#fffdff",
+                        "secondary-fixed-dim": "#67d9c9",
+                        "outline-variant": "#c1c6d4",
+                        "tertiary-fixed-dim": "#ffb688",
+                        "primary": "#005dac",
+                        "surface-container-highest": "#e0e2ea",
+                        "secondary": "#006a60",
+                        "on-tertiary-fixed": "#311300",
+                        "surface-variant": "#e0e2ea",
+                        "surface-container-low": "#f2f3fc",
+                        "primary-fixed-dim": "#a5c8ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "xl": "40px",
+                        "sm": "8px",
+                        "md": "16px",
+                        "base": "8px",
+                        "container-margin": "32px",
+                        "xs": "4px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-main": ["Inter"],
+                        "title-sm": ["Inter"],
+                        "label-bold": ["Inter"],
+                        "data-mono": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-main": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "title-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "label-bold": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "data-mono": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+
+<body class="bg-background min-h-screen flex flex-col font-body-main text-on-surface">
+    <!-- TopAppBar -->
+    <header
+        class="bg-white dark:bg-slate-950 docked full-width top-0 z-50 border-b border-slate-200 dark:border-slate-800 shadow-sm dark:shadow-none">
+        <div
+            class="flex items-center justify-between px-8 h-16 w-full max-w-[1440px] mx-auto font-['Inter'] antialiased tracking-tight">
+            <div class="text-xl font-bold tracking-tighter text-blue-700 dark:text-blue-400 flex items-center gap-2">
+                <span class="material-symbols-outlined"
+                    style="font-variation-settings: 'FILL' 1;">medical_services</span>
+                PneumoAI
+            </div>
+            <nav class="hidden md:flex items-center gap-6">
+                <a class="text-blue-700 dark:text-blue-400 font-semibold border-b-2 border-blue-600 pb-1 cursor-pointer active:opacity-80"
+                    href="#">Diagnostic Hub</a>
+                <a class="text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 cursor-pointer active:opacity-80"
+                    href="#">Patient Records</a>
+                <a class="text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 cursor-pointer active:opacity-80"
+                    href="#">Analytics</a>
+            </nav>
+            <div class="flex items-center gap-4">
+                <button
+                    class="text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors duration-200 p-2 rounded-full cursor-pointer active:opacity-80">
+                    <span class="material-symbols-outlined">notifications</span>
+                </button>
+                <button
+                    class="text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors duration-200 p-2 rounded-full cursor-pointer active:opacity-80">
+                    <span class="material-symbols-outlined">settings</span>
+                </button>
+                <img alt="Clinician Profile" class="w-8 h-8 rounded-full border border-slate-200 ml-2"
+                    data-alt="professional clinician headshot in medical setting"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4ZuTn290jOyqCN6qhePNBtfH5s9m-pigDKTO04N_gw_UjSoD4WaILZ6mIDef-5GhONjwAFovhZ76QBjvPgAIUVD1WnsgPW_hp5iFRY2E8qJ4a2QhBznVTBGFxdxfWa3YQv90-keU0JcKSaWeCRo5fBVAWw2b669SuYVcfgwH1f35DsdIO_RYjnkfxzdaW1G4bKEDRvGcpBE0cFiHfoxTTnfu22wrr1R4H-RK4ln894fFS5erd_4QiptZUUCDdVzxPzEJb-dHEKS1g" />
+            </div>
+        </div>
+    </header>
+    <!-- Main Content Canvas -->
+    <main class="flex-grow w-full max-w-[1440px] mx-auto px-8 py-container-margin">
+        <div class="mb-lg">
+            <h1 class="font-display-lg text-display-lg text-on-surface mb-2">Pneumonia Detection System</h1>
+            <p class="font-body-main text-body-main text-on-surface-variant">AI-powered chest X-ray analysis for
+                clinical decision support.</p>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-lg">
+            <!-- Left Column: Upload & Actions -->
+            <div class="lg:col-span-5 flex flex-col gap-lg">
+                <!-- Upload Zone -->
+                <div
+                    class="bg-surface-container-lowest border border-outline-variant rounded-xl p-xl flex flex-col items-center justify-center text-center border-dashed hover:bg-surface-container-low transition-colors duration-200 cursor-pointer h-64">
+                    <span class="material-symbols-outlined text-4xl text-primary mb-4"
+                        style="font-variation-settings: 'FILL' 0;">upload_file</span>
+                    <h3 class="font-title-sm text-title-sm text-on-surface mb-xs">Upload Chest X-Ray</h3>
+                    <p class="font-body-sm text-body-sm text-on-surface-variant mb-md">Drag and drop DICOM or JPEG files
+                        here, or click to browse.</p>
+                    <button
+                        class="bg-primary-container text-on-primary font-label-bold text-label-bold px-md py-sm rounded-lg hover:opacity-90 transition-opacity">Select
+                        File</button>
+                </div>
+                <!-- Analysis Controls -->
+                <div
+                    class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md shadow-[0_2px_4px_rgba(0,0,0,0.04)]">
+                    <h4 class="font-title-sm text-title-sm text-on-surface mb-md">Analysis Options</h4>
+                    <div class="flex items-center justify-between mb-sm">
+                        <span class="font-body-sm text-body-sm text-on-surface">Generate Heatmap</span>
+                        <div class="w-10 h-5 bg-primary-container rounded-full relative cursor-pointer">
+                            <div class="w-4 h-4 bg-white rounded-full absolute right-0.5 top-0.5"></div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between mb-md">
+                        <span class="font-body-sm text-body-sm text-on-surface">Include Detailed Report</span>
+                        <div class="w-10 h-5 bg-surface-variant rounded-full relative cursor-pointer">
+                            <div class="w-4 h-4 bg-white rounded-full absolute left-0.5 top-0.5 shadow-sm"></div>
+                        </div>
+                    </div>
+                    <button
+                        class="w-full bg-primary-container text-on-primary font-title-sm text-title-sm py-md rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+                        <span class="material-symbols-outlined">analytics</span>
+                        Run Analysis
+                    </button>
+                </div>
+            </div>
+            <!-- Right Column: Results & Visualization -->
+            <div class="lg:col-span-7 flex flex-col gap-lg">
+                <!-- Result Summary Card -->
+                <div
+                    class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg shadow-[0_2px_4px_rgba(0,0,0,0.04)] flex flex-col md:flex-row items-center justify-between gap-md">
+                    <div>
+                        <p class="font-label-bold text-label-bold text-on-surface-variant uppercase mb-1">AI Prediction
+                        </p>
+                        <!-- PNEUMONIA State (Example) -->
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-error"
+                                style="font-variation-settings: 'FILL' 1;">warning</span>
+                            <h2 class="font-display-lg text-display-lg text-error">PNEUMONIA</h2>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-48 text-right">
+                        <div class="flex justify-between mb-1">
+                            <span class="font-label-bold text-label-bold text-on-surface-variant">Confidence</span>
+                            <span class="font-data-mono text-data-mono text-primary">98%</span>
+                        </div>
+                        <div class="w-full bg-surface-variant h-2 rounded-full overflow-hidden">
+                            <div class="bg-primary h-full rounded-full" style="width: 98%;"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Visualizers -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-md h-full">
+                    <!-- Original Image -->
+                    <div
+                        class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden flex flex-col shadow-[0_2px_4px_rgba(0,0,0,0.04)]">
+                        <div
+                            class="p-sm border-b border-outline-variant bg-surface-container-low flex justify-between items-center">
+                            <span class="font-label-bold text-label-bold text-on-surface">Original X-Ray</span>
+                            <button class="text-on-surface-variant hover:text-primary"><span
+                                    class="material-symbols-outlined text-[18px]">zoom_in</span></button>
+                        </div>
+                        <div class="flex-grow bg-black relative">
+                            <img alt="Chest X-Ray Original" class="w-full h-full object-contain opacity-80"
+                                data-alt="black and white medical chest x-ray scan showing lungs and ribs"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6jBwF6FEUcWptHvs5cc2r-i4kuXRS_FM_Piunx-Ye6MP0IP-rq3Yf4WhviIzPnsbFsvQOMcuy4OmYBiaZsFw9eUbjUOeYoSeQ6KCSBtQTybx0enoFYvP9KFJACb3BR-kFnwDp7pdHH-QFvYK2P5Pig0XZtsbt8bGUAwkfMNQ-Re0w8kE2YcXb2CI6i6VoDcwVNk-HxOfIU9-60qXv-ESqZ2QEUvI-BX67mR-LSYDLux-WiYTmyuS_ULMOsn7scn07sII3DwZnLd7I" />
+                        </div>
+                    </div>
+                    <!-- AI Heatmap -->
+                    <div
+                        class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden flex flex-col shadow-[0_2px_4px_rgba(0,0,0,0.04)]">
+                        <div
+                            class="p-sm border-b border-outline-variant bg-surface-container-low flex justify-between items-center">
+                            <span class="font-label-bold text-label-bold text-on-surface">AI Heatmap Highlight</span>
+                            <div class="flex items-center gap-1">
+                                <span class="w-3 h-3 rounded-full bg-blue-500 opacity-50"></span>
+                                <span class="w-3 h-3 rounded-full bg-yellow-500 opacity-70"></span>
+                                <span class="w-3 h-3 rounded-full bg-red-500 opacity-90"></span>
+                            </div>
+                        </div>
+                        <div class="flex-grow bg-black relative">
+                            <img alt="Chest X-Ray Heatmap"
+                                class="w-full h-full object-contain opacity-70 mix-blend-screen"
+                                data-alt="medical chest x-ray scan with false color thermal heatmap overlay indicating areas of concern"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTgYfBk92_5mbXUfBUBugs0lPM1tuxZDmC5f5sCBO5ekYrhaihNpnTEwNeNrTH3n6h73G6LitOGUNaq-OOgPm3_DSTLQSpYRnHeuFWiUA2jpB4o2cT-AKMqb3YyYEIVmklfH5BxH_4RJH3YDPe5xhF8gIGXKcBzWFlUFIFSosuFWI5O8FO3sdm9Rzjz4nmGCLukxnSJc5HGC-vFIarKHQsKs3eUv25JZ693zOVxVZSoNHbo1Ac1anJkzdnBJgH-I496nwlEmOtXkCC" />
+                            <!-- Simulated Heatmap Overlay -->
+                            <div
+                                class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-red-500/40 via-transparent to-transparent mix-blend-overlay">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- Footer -->
+    <footer
+        class="bg-slate-50 dark:bg-slate-900 w-full border-t border-slate-200 dark:border-slate-800 flat no shadows mt-auto">
+        <div
+            class="flex flex-col md:flex-row justify-between items-center px-8 py-6 gap-4 w-full max-w-[1440px] mx-auto text-xs font-['Inter'] leading-relaxed">
+            <div class="text-slate-600 dark:text-slate-400">
+                © 2024 PneumoAI Clinical. Restricted to professional medical use only. AI insights must be verified by a
+                licensed radiologist.
+            </div>
+            <div class="flex gap-4">
+                <a class="text-slate-500 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-300 transition-all duration-300"
+                    href="#">Medical Disclaimer</a>
+                <a class="text-slate-500 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-300 transition-all duration-300"
+                    href="#">Privacy Policy</a>
+                <a class="text-slate-500 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-300 transition-all duration-300"
+                    href="#">Technical Support</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
+
+<!-- Pneumonia Detection Dashboard -->
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Patient Records - PulmoScan AI</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-high": "#e6e8f0",
+                        "secondary-container": "#85f6e5",
+                        "surface-tint": "#005faf",
+                        "inverse-surface": "#2d3037",
+                        "on-error": "#ffffff",
+                        "outline": "#717783",
+                        "background": "#f9f9ff",
+                        "outline-variant": "#c1c6d4",
+                        "error": "#ba1a1a",
+                        "primary-fixed-dim": "#a5c8ff",
+                        "tertiary-fixed-dim": "#ffb688",
+                        "on-primary": "#ffffff",
+                        "surface-bright": "#f9f9ff",
+                        "tertiary-fixed": "#ffdbc7",
+                        "on-tertiary-container": "#fffeff",
+                        "on-secondary-fixed": "#00201c",
+                        "on-surface-variant": "#414752",
+                        "on-secondary-container": "#007166",
+                        "primary-container": "#1976d2",
+                        "primary": "#005dac",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed-variant": "#733600",
+                        "on-surface": "#181c21",
+                        "surface-container": "#ecedf6",
+                        "surface-container-highest": "#e0e2ea",
+                        "secondary-fixed": "#85f6e5",
+                        "on-background": "#181c21",
+                        "surface-variant": "#e0e2ea",
+                        "error-container": "#ffdad6",
+                        "surface-container-low": "#f2f3fc",
+                        "surface": "#f9f9ff",
+                        "primary-fixed": "#d4e3ff",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-fixed": "#311300",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#67d9c9",
+                        "on-secondary-fixed-variant": "#005048",
+                        "inverse-on-surface": "#eff0f9",
+                        "surface-dim": "#d8dae2",
+                        "on-primary-fixed": "#001c3a",
+                        "tertiary": "#944700",
+                        "tertiary-container": "#ba5b00",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-container": "#fffdff",
+                        "secondary": "#006a60",
+                        "inverse-primary": "#a5c8ff",
+                        "on-primary-fixed-variant": "#004786"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "md": "16px",
+                        "xs": "4px",
+                        "container-margin": "32px",
+                        "gutter": "16px",
+                        "lg": "24px",
+                        "xl": "40px",
+                        "sm": "8px"
+                    },
+                    "fontFamily": {
+                        "display-lg": [
+                            "Inter"
+                        ],
+                        "body-main": [
+                            "Inter"
+                        ],
+                        "title-sm": [
+                            "Inter"
+                        ],
+                        "label-bold": [
+                            "Inter"
+                        ],
+                        "data-mono": [
+                            "Inter"
+                        ],
+                        "body-sm": [
+                            "Inter"
+                        ],
+                        "headline-md": [
+                            "Inter"
+                        ]
+                    },
+                    "fontSize": {
+                        "display-lg": [
+                            "32px",
+                            {
+                                "lineHeight": "40px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                            }
+                        ],
+                        "body-main": [
+                            "16px",
+                            {
+                                "lineHeight": "24px",
+                                "fontWeight": "400"
+                            }
+                        ],
+                        "title-sm": [
+                            "18px",
+                            {
+                                "lineHeight": "24px",
+                                "fontWeight": "600"
+                            }
+                        ],
+                        "label-bold": [
+                            "12px",
+                            {
+                                "lineHeight": "16px",
+                                "letterSpacing": "0.05em",
+                                "fontWeight": "600"
+                            }
+                        ],
+                        "data-mono": [
+                            "14px",
+                            {
+                                "lineHeight": "20px",
+                                "letterSpacing": "0.01em",
+                                "fontWeight": "500"
+                            }
+                        ],
+                        "body-sm": [
+                            "14px",
+                            {
+                                "lineHeight": "20px",
+                                "fontWeight": "400"
+                            }
+                        ],
+                        "headline-md": [
+                            "24px",
+                            {
+                                "lineHeight": "32px",
+                                "letterSpacing": "-0.01em",
+                                "fontWeight": "600"
+                            }
+                        ]
+                    }
+                },
+            }
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .icon-fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+
+<body class="bg-surface font-body-main text-body-main text-on-surface antialiased flex h-screen overflow-hidden">
+    <!-- JSON Component: SideNavBar -->
+    <aside
+        class="bg-slate-50 dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 h-screen w-64 fixed left-0 top-0 flex flex-col p-4 space-y-2 z-40">
+        <!-- Header Profile -->
+        <div class="flex items-center gap-3 px-2 py-3 mb-4">
+            <div class="w-10 h-10 rounded-full overflow-hidden bg-slate-200 shrink-0">
+                <img alt="Clinician Profile" class="w-full h-full object-cover"
+                    data-alt="Professional headshot of a smiling male doctor in a white lab coat with a stethoscope, bright clinical lighting"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCixzGXhaeaAUs4txF8_On5l4hFg5lORW87XQeiXq1j5GLUxDYX0XVoXu27XL7nTPzLDzZwJWyV2tPtQgWk5QFkUF6zZT9tv9kKbH413EDTOCCp6SiEboW4EUa2nGpBZJTLTPMWmGQ97xlEbArgCZzqJwXXM-LAiO9HXdKy8TNAusNC-cIHHDAF3WhRHIfmRTLjeVMPyf-BexiFW-JS27Yn9z4kbf82iLmN7uxG9IkrKGXHFu0bT7iRJqaD4kVbw8QA6oVEcC3RGik" />
+            </div>
+            <div class="flex flex-col min-w-0">
+                <span class="text-sm font-bold text-slate-900 truncate">Dr. Richardson</span>
+                <span class="text-xs text-slate-500 truncate">Radiology Department</span>
+            </div>
+        </div>
+        <!-- CTA -->
+        <button
+            class="bg-blue-700 text-white rounded-lg py-2.5 px-4 w-full mb-4 text-sm font-medium hover:bg-blue-800 transition-colors flex items-center justify-center gap-2 shadow-sm">
+            <span class="material-symbols-outlined text-[18px]">add</span>
+            New Scan
+        </button>
+        <!-- Navigation Links -->
+        <nav class="flex-1 space-y-1">
+            <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all font-sans text-sm font-medium active:scale-95 duration-150 group"
+                href="#">
+                <span class="material-symbols-outlined text-[20px] group-hover:text-blue-600">clinical_notes</span>
+                Diagnostic Hub
+            </a>
+            <!-- ACTIVE TAB -->
+            <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-white dark:bg-slate-800 text-blue-700 dark:text-blue-400 shadow-sm border border-slate-200 dark:border-slate-700 transition-all font-sans text-sm font-medium active:scale-95 duration-150"
+                href="#">
+                <span class="material-symbols-outlined icon-fill text-[20px]">groups</span>
+                Patient Records
+            </a>
+            <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all font-sans text-sm font-medium active:scale-95 duration-150 group"
+                href="#">
+                <span class="material-symbols-outlined text-[20px] group-hover:text-blue-600">analytics</span>
+                Analytics
+            </a>
+        </nav>
+        <!-- Footer Links -->
+        <div class="pt-4 border-t border-slate-200 dark:border-slate-800 space-y-1">
+            <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all font-sans text-sm font-medium"
+                href="#">
+                <span class="material-symbols-outlined text-[20px]">settings</span>
+                Settings
+            </a>
+            <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all font-sans text-sm font-medium"
+                href="#">
+                <span class="material-symbols-outlined text-[20px]">help</span>
+                Support
+            </a>
+        </div>
+    </aside>
+    <!-- Main Content Wrapper -->
+    <div class="flex-1 flex flex-col ml-64 min-w-0 bg-surface">
+        <!-- JSON Component: TopAppBar -->
+        <header
+            class="w-full sticky top-0 z-50 bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800">
+            <div class="flex justify-between items-center h-16 px-6 max-w-[1440px] mx-auto w-full">
+                <!-- Brand -->
+                <div class="text-xl font-bold tracking-tight text-blue-700 dark:text-blue-500 font-sans antialiased">
+                    PulmoScan AI
+                </div>
+                <!-- Trailing Actions & Search -->
+                <div class="flex items-center gap-4">
+                    <!-- Search Bar (on_right) -->
+                    <div class="relative hidden md:block">
+                        <span
+                            class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[18px]">search</span>
+                        <input
+                            class="pl-10 pr-4 py-2 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-full text-sm font-sans text-slate-900 dark:text-slate-100 focus:outline-none focus:border-blue-700 focus:ring-1 focus:ring-blue-700 w-72 transition-shadow placeholder:text-slate-400"
+                            placeholder="Search patient ID or name..." type="text" />
+                    </div>
+                    <!-- Icons -->
+                    <div class="flex items-center gap-1 border-l border-slate-200 dark:border-slate-700 pl-4 ml-2">
+                        <button
+                            class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors p-2 rounded-full hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer active:opacity-70">
+                            <span class="material-symbols-outlined text-[22px]">notifications</span>
+                        </button>
+                        <button
+                            class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors p-2 rounded-full hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer active:opacity-70">
+                            <span class="material-symbols-outlined text-[22px]">account_circle</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Page Content Canvas (Using Theme Config) -->
+        <main class="flex-1 overflow-y-auto p-lg lg:p-container-margin">
+            <div class="max-w-[1440px] mx-auto space-y-lg">
+                <!-- Page Header -->
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-md">
+                    <div>
+                        <h1 class="font-display-lg text-display-lg text-on-surface">Patient Registry</h1>
+                        <p class="font-body-main text-body-main text-on-surface-variant mt-xs">Manage and review recent
+                            diagnostic scans across all wards.</p>
+                    </div>
+                    <div class="flex items-center gap-md">
+                        <button
+                            class="h-[40px] px-md rounded-lg border border-outline-variant text-primary font-body-sm text-body-sm font-medium hover:bg-surface-container-low transition-colors flex items-center gap-sm bg-surface-container-lowest">
+                            <span class="material-symbols-outlined text-[18px]">download</span>
+                            Export List
+                        </button>
+                    </div>
+                </div>
+                <!-- Summary Stats (Bento Layout) -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+                    <!-- Stat Card 1 -->
+                    <div
+                        class="bg-surface-container-lowest rounded-xl p-md border border-surface-variant flex items-center gap-md shadow-sm">
+                        <div
+                            class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center shrink-0 text-on-primary-fixed">
+                            <span class="material-symbols-outlined icon-fill">groups</span>
+                        </div>
+                        <div>
+                            <div class="font-body-sm text-body-sm text-on-surface-variant">Total Patients</div>
+                            <div class="font-headline-md text-headline-md text-on-surface mt-xs">1,248</div>
+                        </div>
+                    </div>
+                    <!-- Stat Card 2 -->
+                    <div
+                        class="bg-surface-container-lowest rounded-xl p-md border border-surface-variant flex items-center gap-md shadow-sm">
+                        <div
+                            class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center shrink-0 text-on-secondary-container">
+                            <span class="material-symbols-outlined icon-fill">radiology</span>
+                        </div>
+                        <div>
+                            <div class="font-body-sm text-body-sm text-on-surface-variant">Scans Today</div>
+                            <div class="font-headline-md text-headline-md text-on-surface mt-xs">34</div>
+                        </div>
+                    </div>
+                    <!-- Stat Card 3 (High Priority) -->
+                    <div
+                        class="bg-error-container rounded-xl p-md border border-error/20 flex items-center gap-md shadow-sm relative overflow-hidden">
+                        <div
+                            class="absolute -right-4 -top-4 w-24 h-24 bg-error/10 rounded-full blur-xl pointer-events-none">
+                        </div>
+                        <div
+                            class="w-12 h-12 rounded-full bg-error/20 flex items-center justify-center shrink-0 text-on-error-container">
+                            <span class="material-symbols-outlined icon-fill">warning</span>
+                        </div>
+                        <div class="relative z-10">
+                            <div class="font-body-sm text-body-sm text-on-error-container/80">Flagged Cases (Pending)
+                            </div>
+                            <div class="font-headline-md text-headline-md text-on-error-container mt-xs">5</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Main Data Section -->
+                <div
+                    class="bg-surface-container-lowest rounded-xl border border-surface-variant shadow-sm flex flex-col">
+                    <!-- Filter Toolbar -->
+                    <div
+                        class="p-md border-b border-surface-variant flex flex-col sm:flex-row items-center gap-md justify-between bg-surface-bright rounded-t-xl">
+                        <div class="flex flex-wrap items-center gap-sm w-full sm:w-auto">
+                            <!-- Status Filter Dropdown (Simulated) -->
+                            <div class="relative inline-block text-left w-full sm:w-48">
+                                <button aria-expanded="true" aria-haspopup="true"
+                                    class="inline-flex w-full justify-between items-center gap-x-1.5 rounded-md bg-surface-container-lowest px-3 py-2 text-sm font-semibold text-on-surface shadow-sm ring-1 ring-inset ring-outline-variant hover:bg-surface-container-low"
+                                    id="menu-button" type="button">
+                                    Prediction: All
+                                    <span
+                                        class="material-symbols-outlined text-[18px] text-outline">arrow_drop_down</span>
+                                </button>
+                            </div>
+                            <!-- Date Range Dropdown (Simulated) -->
+                            <div class="relative inline-block text-left w-full sm:w-48">
+                                <button aria-expanded="true" aria-haspopup="true"
+                                    class="inline-flex w-full justify-between items-center gap-x-1.5 rounded-md bg-surface-container-lowest px-3 py-2 text-sm font-semibold text-on-surface shadow-sm ring-1 ring-inset ring-outline-variant hover:bg-surface-container-low"
+                                    id="menu-button" type="button">
+                                    <span class="flex items-center gap-2"><span
+                                            class="material-symbols-outlined text-[16px] text-outline">calendar_today</span>
+                                        Last 7 Days</span>
+                                    <span
+                                        class="material-symbols-outlined text-[18px] text-outline">arrow_drop_down</span>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- Secondary Search for Table -->
+                        <div class="relative w-full sm:w-64">
+                            <span
+                                class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]">filter_list</span>
+                            <input
+                                class="block w-full rounded-md border-0 py-1.5 pl-9 pr-3 text-on-surface ring-1 ring-inset ring-outline-variant placeholder:text-outline focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6 bg-surface-container-lowest"
+                                placeholder="Filter by ID or Ward..." type="text" />
+                        </div>
+                    </div>
+                    <!-- Data Table -->
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-surface-variant text-left">
+                            <thead class="bg-surface-container-low">
+                                <tr>
+                                    <th class="py-sm px-md font-label-bold text-label-bold text-on-surface-variant uppercase tracking-wider"
+                                        scope="col">Patient ID</th>
+                                    <th class="py-sm px-md font-label-bold text-label-bold text-on-surface-variant uppercase tracking-wider"
+                                        scope="col">Name &amp; Demographics</th>
+                                    <th class="py-sm px-md font-label-bold text-label-bold text-on-surface-variant uppercase tracking-wider"
+                                        scope="col">Last Scan Date</th>
+                                    <th class="py-sm px-md font-label-bold text-label-bold text-on-surface-variant uppercase tracking-wider"
+                                        scope="col">AI Prediction</th>
+                                    <th class="py-sm px-md font-label-bold text-label-bold text-on-surface-variant uppercase tracking-wider"
+                                        scope="col">Clinical Status</th>
+                                    <th class="py-sm px-md font-label-bold text-label-bold text-on-surface-variant uppercase tracking-wider text-right"
+                                        scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-surface-variant bg-surface-container-lowest">
+                                <!-- Row 1: Pneumonia (Flagged) -->
+                                <tr class="hover:bg-surface-container-low/50 transition-colors group">
+                                    <td
+                                        class="whitespace-nowrap py-3 px-md font-data-mono text-data-mono text-on-surface-variant">
+                                        #PT-88204</td>
+                                    <td class="whitespace-nowrap py-3 px-md">
+                                        <div class="font-title-sm text-title-sm text-on-surface">Eleanor Vance</div>
+                                        <div class="font-body-sm text-body-sm text-on-surface-variant">F • 68 yrs • Ward
+                                            4</div>
+                                    </td>
+                                    <td class="whitespace-nowrap py-3 px-md font-body-sm text-body-sm text-on-surface">
+                                        Oct 24, 2023 <span class="text-on-surface-variant ml-1">09:15 AM</span></td>
+                                    <td class="whitespace-nowrap py-3 px-md">
+                                        <span
+                                            class="inline-flex items-center gap-1 rounded-full bg-error-container px-2.5 py-0.5 font-label-bold text-label-bold text-on-error-container">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+                                            Pneumonia (92%)
+                                        </span>
+                                    </td>
+                                    <td class="whitespace-nowrap py-3 px-md">
+                                        <span
+                                            class="inline-flex items-center rounded-md bg-surface-container-high px-2 py-1 font-body-sm text-body-sm text-on-surface font-medium border border-outline-variant">
+                                            Pending Review
+                                        </span>
+                                    </td>
+                                    <td class="whitespace-nowrap py-3 px-md text-right">
+                                        <button
+                                            class="inline-flex items-center justify-center h-8 px-3 rounded bg-primary text-on-primary font-body-sm text-body-sm font-medium hover:bg-surface-tint transition-colors shadow-sm">
+                                            View Results
+                                        </button>
+                                    </td>
+                                </tr>
+                                <!-- Row 2: Normal -->
+                                <tr class="hover:bg-surface-container-low/50 transition-colors group">
+                                    <td
+                                        class="whitespace-nowrap py-3 px-md font-data-mono text-data-mono text-on-surface-variant">
+                                        #PT-88205</td>
+                                    <td class="whitespace-nowrap py-3 px-md">
+                                        <div class="font-title-sm text-title-sm text-on-surface">Marcus Thorne</div>
+                                        <div class="font-body-sm text-body-sm text-on-surface-variant">M • 42 yrs • ER
+                                        </div>
+                                    </td>
+                                    <td class="whitespace-nowrap py-3 px-md font-body-sm text-body-sm text-on-surface">
+                                        Oct 24, 2023 <span class="text-on-surface-variant ml-1">10:30 AM</span></td>
+                                    <td class="whitespace-nowrap py-3 px-md">
+                                        <span
+                                            class="inline-flex items-center gap-1 rounded-full bg-secondary-container px-2.5 py-0.5 font-label-bold text-label-bold text-on-secondary-container">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                                            Normal (98%)
+                                        </span>
+                                    </td>
+                                    <td class="whitespace-nowrap py-3 px-md">
+                                        <span
+                                            class="inline-flex items-center rounded-md bg-surface-container px-2 py-1 font-body-sm text-body-sm text-on-surface-variant border border-transparent">
+                                            Discharged
+                                        </span>
+                                    </td>
+                                    <td class="whitespace-nowrap py-3 px-md text-right">
+                                        <button
+                                            class="inline-flex items-center justify-center h-8 px-3 rounded border border-outline text-primary font-body-sm text-body-sm font-medium hover:bg-surface-container-low transition-colors">
+                                            Open Record
+                                        </button>
+                                    </td>
+                                </tr>
+                                <!-- Row 3: Normal -->
+                                <tr class="hover:bg-surface-container-low/50 transition-colors group">
+                                    <td
+                                        class="whitespace-nowrap py-3 px-md font-data-mono text-data-mono text-on-surface-variant">
+                                        #PT-88201</td>
+                                    <td class="whitespace-nowrap py-3 px-md">
+                                        <div class="font-title-sm text-title-sm text-on-surface">Sarah Jenkins</div>
+                                        <div class="font-body-sm text-body-sm text-on-surface-variant">F • 29 yrs •
+                                            Clinic A</div>
+                                    </td>
+                                    <td class="whitespace-nowrap py-3 px-md font-body-sm text-body-sm text-on-surface">
+                                        Oct 23, 2023 <span class="text-on-surface-variant ml-1">02:15 PM</span></td>
+                                    <td class="whitespace-nowrap py-3 px-md">
+                                        <span
+                                            class="inline-flex items-center gap-1 rounded-full bg-secondary-container px-2.5 py-0.5 font-label-bold text-label-bold text-on-secondary-container">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                                            Normal (95%)
+                                        </span>
+                                    </td>
+                                    <td class="whitespace-nowrap py-3 px-md">
+                                        <span
+                                            class="inline-flex items-center rounded-md bg-surface-container px-2 py-1 font-body-sm text-body-sm text-on-surface-variant border border-transparent">
+                                            Reviewed
+                                        </span>
+                                    </td>
+                                    <td class="whitespace-nowrap py-3 px-md text-right">
+                                        <button
+                                            class="inline-flex items-center justify-center h-8 px-3 rounded border border-outline text-primary font-body-sm text-body-sm font-medium hover:bg-surface-container-low transition-colors">
+                                            Open Record
+                                        </button>
+                                    </td>
+                                </tr>
+                                <!-- Row 4: Pneumonia (Flagged) -->
+                                <tr class="hover:bg-surface-container-low/50 transition-colors group">
+                                    <td
+                                        class="whitespace-nowrap py-3 px-md font-data-mono text-data-mono text-on-surface-variant">
+                                        #PT-88198</td>
+                                    <td class="whitespace-nowrap py-3 px-md">
+                                        <div class="font-title-sm text-title-sm text-on-surface">Robert Chen</div>
+                                        <div class="font-body-sm text-body-sm text-on-surface-variant">M • 74 yrs • ICU
+                                        </div>
+                                    </td>
+                                    <td class="whitespace-nowrap py-3 px-md font-body-sm text-body-sm text-on-surface">
+                                        Oct 23, 2023 <span class="text-on-surface-variant ml-1">08:00 AM</span></td>
+                                    <td class="whitespace-nowrap py-3 px-md">
+                                        <span
+                                            class="inline-flex items-center gap-1 rounded-full bg-error-container px-2.5 py-0.5 font-label-bold text-label-bold text-on-error-container">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+                                            Pneumonia (99%)
+                                        </span>
+                                    </td>
+                                    <td class="whitespace-nowrap py-3 px-md">
+                                        <span
+                                            class="inline-flex items-center rounded-md bg-surface-container-highest px-2 py-1 font-body-sm text-body-sm text-on-surface font-medium border border-outline-variant">
+                                            Admitted
+                                        </span>
+                                    </td>
+                                    <td class="whitespace-nowrap py-3 px-md text-right">
+                                        <button
+                                            class="inline-flex items-center justify-center h-8 px-3 rounded bg-primary text-on-primary font-body-sm text-body-sm font-medium hover:bg-surface-tint transition-colors shadow-sm">
+                                            View Results
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Pagination (Simple Footer) -->
+                    <div
+                        class="p-md border-t border-surface-variant bg-surface-container-lowest rounded-b-xl flex items-center justify-between">
+                        <span class="font-body-sm text-body-sm text-on-surface-variant">Showing 1 to 4 of 1,248
+                            entries</span>
+                        <div class="flex items-center gap-2">
+                            <button class="p-1 rounded hover:bg-surface-container-low text-outline disabled:opacity-50"
+                                disabled="">
+                                <span class="material-symbols-outlined text-[20px]">chevron_left</span>
+                            </button>
+                            <button class="p-1 rounded hover:bg-surface-container-low text-on-surface">
+                                <span class="material-symbols-outlined text-[20px]">chevron_right</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
+
+<!-- Patient Records - Pneumonia AI -->
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>PulmoScan AI - Analytics</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-high": "#e6e8f0",
+                        "secondary-container": "#85f6e5",
+                        "surface-tint": "#005faf",
+                        "inverse-surface": "#2d3037",
+                        "on-error": "#ffffff",
+                        "outline": "#717783",
+                        "background": "#f9f9ff",
+                        "outline-variant": "#c1c6d4",
+                        "error": "#ba1a1a",
+                        "primary-fixed-dim": "#a5c8ff",
+                        "tertiary-fixed-dim": "#ffb688",
+                        "on-primary": "#ffffff",
+                        "surface-bright": "#f9f9ff",
+                        "tertiary-fixed": "#ffdbc7",
+                        "on-tertiary-container": "#fffeff",
+                        "on-secondary-fixed": "#00201c",
+                        "on-surface-variant": "#414752",
+                        "on-secondary-container": "#007166",
+                        "primary-container": "#1976d2",
+                        "primary": "#005dac",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed-variant": "#733600",
+                        "on-surface": "#181c21",
+                        "surface-container": "#ecedf6",
+                        "surface-container-highest": "#e0e2ea",
+                        "secondary-fixed": "#85f6e5",
+                        "on-background": "#181c21",
+                        "surface-variant": "#e0e2ea",
+                        "error-container": "#ffdad6",
+                        "surface-container-low": "#f2f3fc",
+                        "surface": "#f9f9ff",
+                        "primary-fixed": "#d4e3ff",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-fixed": "#311300",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#67d9c9",
+                        "on-secondary-fixed-variant": "#005048",
+                        "inverse-on-surface": "#eff0f9",
+                        "surface-dim": "#d8dae2",
+                        "on-primary-fixed": "#001c3a",
+                        "tertiary": "#944700",
+                        "tertiary-container": "#ba5b00",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-container": "#fffdff",
+                        "secondary": "#006a60",
+                        "inverse-primary": "#a5c8ff",
+                        "on-primary-fixed-variant": "#004786"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "md": "16px",
+                        "xs": "4px",
+                        "container-margin": "32px",
+                        "gutter": "16px",
+                        "lg": "24px",
+                        "xl": "40px",
+                        "sm": "8px"
+                    },
+                    "fontFamily": {
+                        "display-lg": [
+                            "Inter"
+                        ],
+                        "body-main": [
+                            "Inter"
+                        ],
+                        "title-sm": [
+                            "Inter"
+                        ],
+                        "label-bold": [
+                            "Inter"
+                        ],
+                        "data-mono": [
+                            "Inter"
+                        ],
+                        "body-sm": [
+                            "Inter"
+                        ],
+                        "headline-md": [
+                            "Inter"
+                        ]
+                    },
+                    "fontSize": {
+                        "display-lg": [
+                            "32px",
+                            {
+                                "lineHeight": "40px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                            }
+                        ],
+                        "body-main": [
+                            "16px",
+                            {
+                                "lineHeight": "24px",
+                                "fontWeight": "400"
+                            }
+                        ],
+                        "title-sm": [
+                            "18px",
+                            {
+                                "lineHeight": "24px",
+                                "fontWeight": "600"
+                            }
+                        ],
+                        "label-bold": [
+                            "12px",
+                            {
+                                "lineHeight": "16px",
+                                "letterSpacing": "0.05em",
+                                "fontWeight": "600"
+                            }
+                        ],
+                        "data-mono": [
+                            "14px",
+                            {
+                                "lineHeight": "20px",
+                                "letterSpacing": "0.01em",
+                                "fontWeight": "500"
+                            }
+                        ],
+                        "body-sm": [
+                            "14px",
+                            {
+                                "lineHeight": "20px",
+                                "fontWeight": "400"
+                            }
+                        ],
+                        "headline-md": [
+                            "24px",
+                            {
+                                "lineHeight": "32px",
+                                "letterSpacing": "-0.01em",
+                                "fontWeight": "600"
+                            }
+                        ]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+
+<body
+    class="bg-background text-on-background font-body-main antialiased selection:bg-primary selection:text-on-primary min-h-screen flex">
+    <!-- SideNavBar -->
+    <aside
+        class="bg-slate-50 dark:bg-slate-900 text-blue-700 dark:text-blue-500 font-sans text-sm font-medium h-screen w-64 fixed left-0 top-0 border-r border-slate-200 dark:border-slate-800 flat no shadows flex flex-col p-4 space-y-2 z-40 hidden md:flex">
+        <!-- Brand -->
+        <div class="mb-lg px-md pt-sm">
+            <span class="text-lg font-black text-blue-700">PulmoScan AI</span>
+        </div>
+        <!-- Header Profile -->
+        <div class="flex items-center space-x-md px-md mb-lg">
+            <img alt="Clinician Profile" class="w-10 h-10 rounded-full object-cover border border-outline-variant"
+                data-alt="Professional headshot of a male clinician wearing a white coat, brightly lit"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJO7X2L2QKDsnZO1SKqQY4fZ5mukPsxYjPQl6ve7QmUIGDrag3Dn8cU84gju7Qvq0GCI8rjIT1lK5oRb9mreN47Au-d6Z4nzAz1ofzRua-QYacvPD__g6Ioy28uNJ6sxY7LmC4Pi9ZGjvpYz_hNt-1BtEL-oIiRmmO_MpTm2wYbxQiSNnM9NOMRD9xBbRukF2pE3R7ukNHtY3u3eGe1KMDeIbhCO-nu3JZnwPcRGTe1N26HHIRy76lyu_X4Uij077hyrZpCLqHKIpK" />
+            <div>
+                <div class="font-title-sm text-title-sm text-on-surface">Dr. Richardson</div>
+                <div class="font-body-sm text-body-sm text-on-surface-variant">Radiology Department</div>
+            </div>
+        </div>
+        <!-- CTA -->
+        <button
+            class="bg-primary-container text-on-primary-container font-label-bold text-label-bold h-10 rounded-DEFAULT w-full mb-lg flex items-center justify-center space-x-sm hover:bg-primary transition-colors">
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
+            <span>New Scan</span>
+        </button>
+        <!-- Navigation Links -->
+        <nav class="flex-1 space-y-sm">
+            <a class="text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all active:scale-95 duration-150 flex items-center space-x-md px-md py-sm rounded-DEFAULT"
+                href="#">
+                <span class="material-symbols-outlined">clinical_notes</span>
+                <span>Diagnostic Hub</span>
+            </a>
+            <a class="text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all active:scale-95 duration-150 flex items-center space-x-md px-md py-sm rounded-DEFAULT"
+                href="#">
+                <span class="material-symbols-outlined">groups</span>
+                <span>Patient Records</span>
+            </a>
+            <a class="bg-white dark:bg-slate-800 text-blue-700 dark:text-blue-400 shadow-sm border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all active:scale-95 duration-150 flex items-center space-x-md px-md py-sm rounded-DEFAULT"
+                href="#">
+                <span class="material-symbols-outlined">analytics</span>
+                <span>Analytics</span>
+            </a>
+        </nav>
+        <!-- Footer Links -->
+        <div class="mt-auto space-y-sm">
+            <a class="text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all active:scale-95 duration-150 flex items-center space-x-md px-md py-sm rounded-DEFAULT"
+                href="#">
+                <span class="material-symbols-outlined">settings</span>
+                <span>Settings</span>
+            </a>
+            <a class="text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all active:scale-95 duration-150 flex items-center space-x-md px-md py-sm rounded-DEFAULT"
+                href="#">
+                <span class="material-symbols-outlined">help</span>
+                <span>Support</span>
+            </a>
+        </div>
+    </aside>
+    <!-- Main Content Canvas -->
+    <main class="flex-1 md:ml-64 bg-background min-h-screen">
+        <!-- TopAppBar (Mobile Only for Navigation, Web for Top Actions) -->
+        <header
+            class="bg-white dark:bg-slate-950 text-blue-700 dark:text-blue-500 font-sans antialiased text-slate-900 dark:text-slate-100 w-full sticky top-0 z-30 border-b border-slate-200 dark:border-slate-800 flat no shadows flex justify-between items-center h-16 px-6 max-w-[1440px] mx-auto md:hidden">
+            <div class="text-xl font-bold tracking-tight text-blue-700 dark:text-blue-500">PulmoScan AI</div>
+            <div class="flex items-center space-x-md">
+                <button
+                    class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors cursor-pointer active:opacity-70">
+                    <span class="material-symbols-outlined">notifications</span>
+                </button>
+                <button
+                    class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors cursor-pointer active:opacity-70">
+                    <span class="material-symbols-outlined">account_circle</span>
+                </button>
+            </div>
+        </header>
+        <!-- Web Top Actions Area (Matches TopAppBar JSON structure without Brand/Mobile Nav) -->
+        <div
+            class="hidden md:flex justify-between items-center h-16 px-container-margin max-w-[1440px] mx-auto w-full sticky top-0 z-30 bg-surface-container-lowest/80 backdrop-blur-md">
+            <div class="font-headline-md text-headline-md text-on-surface">Analytics Dashboard</div>
+            <div class="flex items-center space-x-md">
+                <!-- Search Bar -->
+                <div class="relative">
+                    <span
+                        class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline">search</span>
+                    <input
+                        class="pl-xl pr-md py-sm bg-surface-container-low border border-outline-variant rounded-DEFAULT focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-body-sm font-body-sm text-on-surface placeholder-outline w-64 h-10 transition-colors"
+                        placeholder="Search analytics..." type="text" />
+                </div>
+                <button
+                    class="text-on-surface-variant hover:text-primary transition-colors cursor-pointer active:opacity-70 w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container">
+                    <span class="material-symbols-outlined">notifications</span>
+                </button>
+                <button
+                    class="text-on-surface-variant hover:text-primary transition-colors cursor-pointer active:opacity-70 w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container">
+                    <span class="material-symbols-outlined">account_circle</span>
+                </button>
+            </div>
+        </div>
+        <div class="p-container-margin max-w-[1440px] mx-auto space-y-lg">
+            <!-- Controls Row -->
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-md sm:space-y-0">
+                <div
+                    class="flex items-center space-x-sm bg-surface-container-lowest border border-outline-variant rounded-DEFAULT p-xs">
+                    <button
+                        class="px-md py-xs bg-surface-container-high text-on-surface font-label-bold text-label-bold rounded-sm">7D</button>
+                    <button
+                        class="px-md py-xs text-on-surface-variant hover:bg-surface-container font-label-bold text-label-bold rounded-sm transition-colors">30D</button>
+                    <button
+                        class="px-md py-xs text-on-surface-variant hover:bg-surface-container font-label-bold text-label-bold rounded-sm transition-colors">90D</button>
+                    <div class="w-px h-4 bg-outline-variant mx-xs"></div>
+                    <button
+                        class="flex items-center space-x-xs px-md py-xs text-on-surface-variant hover:bg-surface-container font-label-bold text-label-bold rounded-sm transition-colors">
+                        <span class="material-symbols-outlined text-[18px]">calendar_today</span>
+                        <span>Custom</span>
+                    </button>
+                </div>
+                <div class="flex space-x-md">
+                    <button
+                        class="h-10 px-md flex items-center space-x-sm border border-outline-variant rounded-DEFAULT text-on-surface font-label-bold text-label-bold hover:bg-surface-container transition-colors">
+                        <span class="material-symbols-outlined text-[18px]">download</span>
+                        <span>Export CSV</span>
+                    </button>
+                    <button
+                        class="h-10 px-md flex items-center space-x-sm bg-primary-container text-on-primary-container rounded-DEFAULT font-label-bold text-label-bold hover:bg-primary transition-colors">
+                        <span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+                        <span>Report</span>
+                    </button>
+                </div>
+            </div>
+            <!-- KPIs (Bento Style) -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+                <!-- Accuracy Rate -->
+                <div
+                    class="bg-surface-container-lowest border border-outline-variant rounded-lg p-lg flex flex-col justify-between h-32 relative overflow-hidden">
+                    <div class="flex justify-between items-start">
+                        <span class="font-title-sm text-title-sm text-on-surface-variant">Model Accuracy</span>
+                        <span class="material-symbols-outlined text-secondary-container">target</span>
+                    </div>
+                    <div class="flex items-end justify-between">
+                        <div class="font-display-lg text-display-lg text-on-surface">98.4<span
+                                class="text-body-main font-body-main text-on-surface-variant">%</span></div>
+                        <div
+                            class="flex items-center space-x-xs text-secondary font-label-bold text-label-bold bg-secondary-fixed/20 px-sm py-xs rounded-sm">
+                            <span class="material-symbols-outlined text-[14px]">arrow_upward</span>
+                            <span>0.2%</span>
+                        </div>
+                    </div>
+                    <!-- Decorative subtle gradient -->
+                    <div
+                        class="absolute -right-8 -bottom-8 w-32 h-32 bg-secondary-fixed opacity-10 rounded-full blur-2xl">
+                    </div>
+                </div>
+                <!-- Total Scans -->
+                <div
+                    class="bg-surface-container-lowest border border-outline-variant rounded-lg p-lg flex flex-col justify-between h-32 relative overflow-hidden">
+                    <div class="flex justify-between items-start">
+                        <span class="font-title-sm text-title-sm text-on-surface-variant">Total Scans Analyzed</span>
+                        <span class="material-symbols-outlined text-primary-container">radiology</span>
+                    </div>
+                    <div class="flex items-end justify-between">
+                        <div class="font-display-lg text-display-lg text-on-surface">12,450</div>
+                        <div
+                            class="flex items-center space-x-xs text-secondary font-label-bold text-label-bold bg-secondary-fixed/20 px-sm py-xs rounded-sm">
+                            <span class="material-symbols-outlined text-[14px]">arrow_upward</span>
+                            <span>5.4%</span>
+                        </div>
+                    </div>
+                    <div
+                        class="absolute -right-8 -bottom-8 w-32 h-32 bg-primary-fixed opacity-10 rounded-full blur-2xl">
+                    </div>
+                </div>
+                <!-- Detection Rate -->
+                <div
+                    class="bg-surface-container-lowest border border-outline-variant rounded-lg p-lg flex flex-col justify-between h-32 relative overflow-hidden">
+                    <div class="flex justify-between items-start">
+                        <span class="font-title-sm text-title-sm text-on-surface-variant">Pneumonia Detection
+                            Rate</span>
+                        <span class="material-symbols-outlined text-tertiary-container">warning</span>
+                    </div>
+                    <div class="flex items-end justify-between">
+                        <div class="font-display-lg text-display-lg text-on-surface">14.2<span
+                                class="text-body-main font-body-main text-on-surface-variant">%</span></div>
+                        <div
+                            class="flex items-center space-x-xs text-on-surface-variant font-label-bold text-label-bold bg-surface-container-high px-sm py-xs rounded-sm">
+                            <span class="material-symbols-outlined text-[14px]">horizontal_rule</span>
+                            <span>0.0%</span>
+                        </div>
+                    </div>
+                    <div
+                        class="absolute -right-8 -bottom-8 w-32 h-32 bg-tertiary-fixed opacity-10 rounded-full blur-2xl">
+                    </div>
+                </div>
+            </div>
+            <!-- Main Charts Row -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-md h-[400px]">
+                <!-- Detection Trends (Line Chart Placeholder) -->
+                <div
+                    class="bg-surface-container-lowest border border-outline-variant rounded-lg p-lg lg:col-span-2 flex flex-col relative overflow-hidden">
+                    <div class="flex justify-between items-center mb-lg">
+                        <h3 class="font-title-sm text-title-sm text-on-surface">Detection Trends</h3>
+                        <button
+                            class="material-symbols-outlined text-outline hover:text-on-surface transition-colors">more_vert</button>
+                    </div>
+                    <!-- Chart Graphic (CSS based placeholder for a line chart) -->
+                    <div class="flex-1 relative w-full h-full">
+                        <!-- Y-Axis -->
+                        <div
+                            class="absolute left-0 top-0 bottom-6 w-8 flex flex-col justify-between text-body-sm font-data-mono text-outline-variant items-end pr-sm">
+                            <span>400</span>
+                            <span>300</span>
+                            <span>200</span>
+                            <span>100</span>
+                            <span>0</span>
+                        </div>
+                        <!-- Grid Lines -->
+                        <div class="absolute left-8 right-0 top-0 bottom-6 flex flex-col justify-between">
+                            <div class="w-full border-t border-outline-variant border-dashed opacity-50 h-0"></div>
+                            <div class="w-full border-t border-outline-variant border-dashed opacity-50 h-0"></div>
+                            <div class="w-full border-t border-outline-variant border-dashed opacity-50 h-0"></div>
+                            <div class="w-full border-t border-outline-variant border-dashed opacity-50 h-0"></div>
+                            <div class="w-full border-t border-outline-variant opacity-100 h-0"></div>
+                        </div>
+                        <!-- Data Lines (Simulated with SVG for precision in a fixed container) -->
+                        <div class="absolute left-8 right-0 top-0 bottom-6">
+                            <svg class="overflow-visible" height="100%" preserveaspectratio="none" viewbox="0 0 100 100"
+                                width="100%">
+                                <!-- Normal Scans Line -->
+                                <path d="M0,80 Q10,75 20,60 T40,50 T60,65 T80,40 T100,30" fill="none" stroke="#e0e2ea"
+                                    stroke-width="2" vector-effect="non-scaling-stroke"></path>
+                                <!-- Detection Line -->
+                                <path d="M0,95 Q15,90 30,85 T50,80 T70,75 T90,60 T100,55" fill="none" stroke="#1976d2"
+                                    stroke-width="3" vector-effect="non-scaling-stroke"></path>
+                                <!-- Highlight Area -->
+                                <path d="M0,95 Q15,90 30,85 T50,80 T70,75 T90,60 T100,55 L100,100 L0,100 Z"
+                                    fill="url(#blue-gradient)" opacity="0.2"></path>
+                                <defs>
+                                    <lineargradient id="blue-gradient" x1="0" x2="0" y1="0" y2="1">
+                                        <stop offset="0%" stop-color="#1976d2"></stop>
+                                        <stop offset="100%" stop-color="transparent"></stop>
+                                    </lineargradient>
+                                </defs>
+                            </svg>
+                        </div>
+                        <!-- X-Axis Labels -->
+                        <div
+                            class="absolute left-8 right-0 bottom-0 h-6 flex justify-between text-body-sm font-data-mono text-outline-variant items-end">
+                            <span>Mon</span>
+                            <span>Tue</span>
+                            <span>Wed</span>
+                            <span>Thu</span>
+                            <span>Fri</span>
+                            <span>Sat</span>
+                            <span>Sun</span>
+                        </div>
+                    </div>
+                    <!-- Legend -->
+                    <div class="flex justify-center space-x-md mt-sm">
+                        <div class="flex items-center space-x-xs">
+                            <div class="w-3 h-3 rounded-full bg-surface-variant"></div>
+                            <span class="font-body-sm text-body-sm text-on-surface-variant">Normal Scans</span>
+                        </div>
+                        <div class="flex items-center space-x-xs">
+                            <div class="w-3 h-3 rounded-full bg-primary-container"></div>
+                            <span class="font-body-sm text-body-sm text-on-surface-variant">Pneumonia Detected</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Prediction Distribution (Donut Chart) -->
+                <div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-lg flex flex-col">
+                    <h3 class="font-title-sm text-title-sm text-on-surface mb-lg">Prediction Distribution</h3>
+                    <div class="flex-1 flex flex-col items-center justify-center">
+                        <!-- CSS Donut Chart -->
+                        <div class="relative w-48 h-48 rounded-full flex items-center justify-center"
+                            style="background: conic-gradient(#1976d2 0% 14.2%, #e0e2ea 14.2% 100%);">
+                            <!-- Inner Cutout -->
+                            <div
+                                class="absolute w-32 h-32 bg-surface-container-lowest rounded-full flex flex-col items-center justify-center">
+                                <span class="font-display-lg text-display-lg text-on-surface">14.2%</span>
+                                <span
+                                    class="font-body-sm text-body-sm text-on-surface-variant text-center leading-tight">Positivity<br />Rate</span>
+                            </div>
+                        </div>
+                        <!-- Legend Details -->
+                        <div class="mt-xl w-full space-y-sm">
+                            <div class="flex justify-between items-center border-b border-outline-variant pb-xs">
+                                <div class="flex items-center space-x-sm">
+                                    <div class="w-3 h-3 rounded-sm bg-surface-variant"></div>
+                                    <span class="font-body-sm text-body-sm text-on-surface-variant">Normal
+                                        (Negative)</span>
+                                </div>
+                                <span class="font-data-mono text-data-mono text-on-surface">10,682</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center space-x-sm">
+                                    <div class="w-3 h-3 rounded-sm bg-primary-container"></div>
+                                    <span class="font-body-sm text-body-sm text-on-surface-variant">Pneumonia
+                                        (Positive)</span>
+                                </div>
+                                <span class="font-data-mono text-data-mono text-on-surface">1,768</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Heatmap Row -->
+            <div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-lg">
+                <div class="flex justify-between items-center mb-lg">
+                    <div>
+                        <h3 class="font-title-sm text-title-sm text-on-surface">System Confidence Heatmap</h3>
+                        <p class="font-body-sm text-body-sm text-on-surface-variant">Aggregated focal points across
+                            positive detections (Top 100 recent scans).</p>
+                    </div>
+                    <button
+                        class="text-primary hover:text-primary-container font-label-bold text-label-bold flex items-center space-x-xs transition-colors">
+                        <span>View Detailed Heatmap</span>
+                        <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                    </button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-xl">
+                    <!-- Image representation -->
+                    <div
+                        class="relative bg-surface-container rounded-DEFAULT overflow-hidden aspect-[4/3] flex items-center justify-center border border-outline-variant">
+                        <!-- Simulated X-Ray Base -->
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-inverse-surface to-on-surface opacity-90 mix-blend-multiply">
+                        </div>
+                        <!-- Simulated Heatmap Overlays (CSS Radial Gradients) -->
+                        <div class="absolute w-32 h-32 rounded-full bg-error opacity-40 blur-xl top-1/3 left-1/4"></div>
+                        <div class="absolute w-24 h-24 rounded-full bg-error opacity-60 blur-lg top-[40%] right-1/3">
+                        </div>
+                        <div
+                            class="absolute w-40 h-40 rounded-full bg-tertiary opacity-30 blur-2xl bottom-1/4 left-1/3">
+                        </div>
+                        <!-- Scan Lines Overlay for clinical feel -->
+                        <div
+                            class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:100%_4px] pointer-events-none">
+                        </div>
+                        <span
+                            class="absolute bottom-md right-md font-data-mono text-data-mono text-on-primary opacity-50">Composite:
+                            N=100</span>
+                    </div>
+                    <!-- Heatmap Data breakdown -->
+                    <div class="flex flex-col justify-center space-y-md">
+                        <h4 class="font-title-sm text-title-sm text-on-surface border-b border-outline-variant pb-xs">
+                            Primary Detection Zones</h4>
+                        <!-- Zone Items -->
+                        <div class="flex items-center justify-between">
+                            <span class="font-body-sm text-body-sm text-on-surface-variant">Right Lower Lobe
+                                (RLL)</span>
+                            <div class="flex items-center space-x-sm w-1/2">
+                                <div class="flex-1 bg-surface-variant h-2 rounded-full overflow-hidden">
+                                    <div class="bg-error h-full" style="width: 65%;"></div>
+                                </div>
+                                <span class="font-data-mono text-data-mono text-on-surface w-8 text-right">65%</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="font-body-sm text-body-sm text-on-surface-variant">Left Lower Lobe (LLL)</span>
+                            <div class="flex items-center space-x-sm w-1/2">
+                                <div class="flex-1 bg-surface-variant h-2 rounded-full overflow-hidden">
+                                    <div class="bg-error h-full opacity-80" style="width: 42%;"></div>
+                                </div>
+                                <span class="font-data-mono text-data-mono text-on-surface w-8 text-right">42%</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="font-body-sm text-body-sm text-on-surface-variant">Right Middle Lobe
+                                (RML)</span>
+                            <div class="flex items-center space-x-sm w-1/2">
+                                <div class="flex-1 bg-surface-variant h-2 rounded-full overflow-hidden">
+                                    <div class="bg-tertiary h-full opacity-60" style="width: 28%;"></div>
+                                </div>
+                                <span class="font-data-mono text-data-mono text-on-surface w-8 text-right">28%</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="font-body-sm text-body-sm text-on-surface-variant">Apical Segments</span>
+                            <div class="flex items-center space-x-sm w-1/2">
+                                <div class="flex-1 bg-surface-variant h-2 rounded-full overflow-hidden">
+                                    <div class="bg-tertiary-fixed h-full" style="width: 12%;"></div>
+                                </div>
+                                <span class="font-data-mono text-data-mono text-on-surface w-8 text-right">12%</span>
+                            </div>
+                        </div>
+                        <div
+                            class="mt-md p-md bg-surface-container-low rounded-DEFAULT border border-outline-variant flex items-start space-x-md">
+                            <span class="material-symbols-outlined text-primary-container">info</span>
+                            <p class="font-body-sm text-body-sm text-on-surface-variant">
+                                The AI model exhibits high confidence in basilar consolidations, consistent with typical
+                                community-acquired pneumonia presentations in the current dataset.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
